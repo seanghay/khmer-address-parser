@@ -1,0 +1,4 @@
+numpy
+torch
+pytorch-crf
+tqdm
