@@ -63,14 +63,29 @@ def main():
   val_ds = AddressDataset(clean, vocab)
 
   train_samples = []
-  for _ in range(5):
+  for i in range(5):
+    if i == 0:
+      train_samples += list(
+        generate_address(
+          remove_space_prob=0.0,
+          noise_prob=0.0,
+          drop_char_prob=0.0,
+          drop_prefix_prob=0.0,
+          drop_component_prob=0.0,
+          insert_word_prob=0.0,
+          include_house_prob=0.0,
+          include_road_prob=0.0,
+        )
+      )
+      continue
+
     train_samples += list(
       generate_address(
-        remove_space_prob=0.1,
+        remove_space_prob=0.3,
         noise_prob=0.1,
         drop_char_prob=0.1,
         drop_prefix_prob=0.5,
-        drop_component_prob=0.1,
+        drop_component_prob=0.2,
         insert_word_prob=0.05,
         include_house_prob=0.3,
         include_road_prob=0.3,
