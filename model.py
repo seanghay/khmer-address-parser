@@ -8,8 +8,8 @@ class CharCNN(nn.Module):
   def __init__(
     self,
     vocab_size: int,
-    char_emb_dim: int = 128,
-    num_filters: int = 128,
+    char_emb_dim: int = 64,
+    num_filters: int = 64,
   ):
     super().__init__()
     self.embedding = nn.Embedding(vocab_size, char_emb_dim, padding_idx=0)
@@ -39,10 +39,10 @@ class NERModel(nn.Module):
     self,
     vocab_size: int,
     num_tags: int = 14,
-    char_emb_dim: int = 128,
-    num_filters: int = 128,
+    char_emb_dim: int = 64,
+    num_filters: int = 64,
     hidden: int = 256,
-    lstm_layers: int = 2,
+    lstm_layers: int = 1,
     dropout: float = 0.3,
   ):
     super().__init__()

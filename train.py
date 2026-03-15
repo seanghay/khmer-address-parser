@@ -2,7 +2,6 @@ import argparse
 import os
 import torch
 from torch.utils.data import DataLoader
-from tqdm import tqdm
 from generate import generate_address
 from data import build_vocab, AddressDataset, collate_fn
 from model import NERModel
@@ -12,8 +11,8 @@ from utils import entity_f1
 def train_epoch(model, loader, optimizer, clip, device):
   model.train()
   total_loss = 0.0
-  pbar = tqdm(loader, desc="train", leave=False)
-  for chars, tags, mask in pbar:
+
+  for chars, tags, mask in loader:
     chars, tags, mask = chars.to(device), tags.to(device), mask.to(device)
     loss = model(chars, tags, mask)
     optimizer.zero_grad()
@@ -21,7 +20,6 @@ def train_epoch(model, loader, optimizer, clip, device):
     torch.nn.utils.clip_grad_norm_(model.parameters(), clip)
     optimizer.step()
     total_loss += loss.item()
-    pbar.set_postfix(loss=f"{loss.item():.4f}")
   return total_loss / len(loader)
 
 
@@ -104,19 +102,18 @@ def main():
     best_f1 = ckpt["best_f1"]
     print(f"Resumed from epoch {ckpt['epoch']}, best_f1={best_f1:.4f}")
 
-  epoch_pbar = tqdm(range(start_epoch, args.epochs), desc="epochs")
-  for epoch in epoch_pbar:
+  for epoch in range(start_epoch, args.epochs):
     loss = train_epoch(model, train_loader, optimizer, args.clip, device)
     metrics = eval_epoch(model, val_loader, device)
     val_f1 = metrics["f1"]
     scheduler.step(val_f1)
-    epoch_pbar.set_postfix(
+    print(
       loss=f"{loss:.4f}",
       P=f"{metrics['precision']:.4f}",
       R=f"{metrics['recall']:.4f}",
       F1=f"{val_f1:.4f}",
     )
-    tqdm.write(
+    print(
       f"Epoch {epoch:3d} | loss={loss:.4f} | P={metrics['precision']:.4f} R={metrics['recall']:.4f} F1={val_f1:.4f}"
     )
 
@@ -134,7 +131,7 @@ def main():
       best_f1 = val_f1
       state["best_f1"] = best_f1
       torch.save(state, os.path.join(args.checkpoint, "best.pt"))
-      tqdm.write(f"  -> new best F1={best_f1:.4f}")
+      print(f"  -> new best F1={best_f1:.4f}")
 
 
 if __name__ == "__main__":
