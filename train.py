@@ -109,10 +109,12 @@ def main():
     val_f1 = metrics["f1"]
     scheduler.step(val_f1)
     print(
-      loss=f"{loss:.4f}",
-      P=f"{metrics['precision']:.4f}",
-      R=f"{metrics['recall']:.4f}",
-      F1=f"{val_f1:.4f}",
+      dict(
+        loss=f"{loss:.4f}",
+        P=f"{metrics['precision']:.4f}",
+        R=f"{metrics['recall']:.4f}",
+        F1=f"{val_f1:.4f}",
+      )
     )
     print(
       f"Epoch {epoch:3d} | loss={loss:.4f} | P={metrics['precision']:.4f} R={metrics['recall']:.4f} F1={val_f1:.4f}"
