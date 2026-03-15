@@ -53,7 +53,19 @@ def encode_tag_value(value: str, tag: str):
 
 
 def generate_house():
-  prefixes = ["ផ្ទះលេខ", "ផ្ទះលេខ ", "ផ្ទះ", "ផ្ទះ.", "ផ្ទះ ", "លេខ.", "លេខ ", "លេខ", "No.", "No. ", ""]
+  prefixes = [
+    "ផ្ទះលេខ",
+    "ផ្ទះលេខ ",
+    "ផ្ទះ",
+    "ផ្ទះ.",
+    "ផ្ទះ ",
+    "លេខ.",
+    "លេខ ",
+    "លេខ",
+    "No.",
+    "No. ",
+    "",
+  ]
   prefix = random.choice(prefixes)
 
   num_length = random.randint(1, 4)
@@ -146,7 +158,8 @@ def generate_address(
           if KHMER_DICT_WORDS and random.random() < insert_word_prob:
             random_word = random.choice(KHMER_DICT_WORDS)
             # Pick a random position to insert the word
-            insert_idx = random.randint(0, len(components))
+            insert_idx = random.choice([0, len(components)])
+            
             # Tag as "0" so encode_tag_value knows to label it as non-entity
             components.insert(insert_idx, (random_word, "0"))
 

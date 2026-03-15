@@ -69,13 +69,13 @@ def main():
     train_samples += list(
       generate_address(
         remove_space_prob=0.1,
-        noise_prob=0.05,
-        drop_char_prob=0.05,
+        noise_prob=0.1,
+        drop_char_prob=0.1,
         drop_prefix_prob=0.5,
         drop_component_prob=0.2,
         insert_word_prob=0.05,
-        include_house_prob=0.1,
-        include_road_prob=0.1,
+        include_house_prob=0.3,
+        include_road_prob=0.3,
       )
     )
   train_ds = AddressDataset(train_samples, vocab)
