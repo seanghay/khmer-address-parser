@@ -53,7 +53,7 @@ def encode_tag_value(value: str, tag: str):
 
 
 def generate_house():
-  prefixes = ["ផ្ទះលេខ", "ផ្ទះលេខ ", "ផ្ទះ", "ផ្ទះ ", "លេខ", "លេខ ", "No.", "No. ", ""]
+  prefixes = ["ផ្ទះលេខ", "ផ្ទះលេខ ", "ផ្ទះ", "ផ្ទះ.", "ផ្ទះ ", "លេខ.", "លេខ ", "លេខ", "No.", "No. ", ""]
   prefix = random.choice(prefixes)
 
   num_length = random.randint(1, 4)
@@ -185,7 +185,7 @@ if __name__ == "__main__":
     drop_char_prob=0.0,
     drop_prefix_prob=0.0,
     drop_component_prob=0.0,
-    insert_word_prob=1.0,  # Set to 1.0 here just to guarantee you see it in the test output
+    insert_word_prob=1.0,
   )
 
   for _ in range(5):
