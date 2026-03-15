@@ -40,7 +40,7 @@ def eval_epoch(model, loader, device):
 def main():
   parser = argparse.ArgumentParser()
   parser.add_argument("--epochs", type=int, default=30)
-  parser.add_argument("--batch_size", type=int, default=128)
+  parser.add_argument("--batch_size", type=int, default=256)
   parser.add_argument("--lr", type=float, default=1e-3)
   parser.add_argument("--clip", type=float, default=5.0)
   parser.add_argument("--checkpoint", type=str, default="checkpoints/")
@@ -63,19 +63,20 @@ def main():
   val_ds = AddressDataset(clean, vocab)
 
   train_samples = []
-  for _ in range(3):
+  for _ in range(5):
     train_samples += list(
       generate_address(
         remove_space_prob=0.1,
         noise_prob=0.1,
         drop_char_prob=0.1,
         drop_prefix_prob=0.5,
-        drop_component_prob=0.2,
+        drop_component_prob=0.1,
         insert_word_prob=0.05,
         include_house_prob=0.3,
         include_road_prob=0.3,
       )
     )
+
   train_ds = AddressDataset(train_samples, vocab)
 
   train_loader = DataLoader(
