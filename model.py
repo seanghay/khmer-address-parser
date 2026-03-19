@@ -39,10 +39,10 @@ class NERModel(nn.Module):
     self,
     vocab_size: int,
     num_tags: int = 14,
-    char_emb_dim: int = 128,
+    char_emb_dim: int = 64,
     num_filters: int = 64,
-    hidden: int = 256,
-    lstm_layers: int = 2,
+    hidden: int = 128,
+    lstm_layers: int = 1,
     dropout: float = 0.3,
   ):
     super().__init__()

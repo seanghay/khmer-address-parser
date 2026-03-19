@@ -26,8 +26,12 @@ def parse_address(text: str, model: NERModel, vocab: dict[str, int], device) -> 
 
 def main():
   parser = argparse.ArgumentParser()
-  parser.add_argument("--checkpoint", required=True)
-  parser.add_argument("--text", required=True)
+  parser.add_argument("--checkpoint", required=False, default="checkpoints/best.pt")
+  parser.add_argument(
+    "--text",
+    required=False,
+    default="ឃុព្រះនេត្រព្រះស្រុកព្រះនេត្រព្រះបន្ទយមានជ",
+  )
   parser.add_argument("--device", default="cpu")
   args = parser.parse_args()
 
