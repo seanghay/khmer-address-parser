@@ -30,7 +30,7 @@ def main():
   parser.add_argument(
     "--text",
     required=False,
-    default="ឃុព្រះនេត្រព្រះស្រុកព្រះនេត្រព្រះបន្ទយមានជ",
+    default="ផ្ទះលេខ២ ផ្លូវ២៣ ភូមិប៉ុស្តិ័ចាស់ ព្រះនេត្រព្រះ ព្រះនេត្រព្រះ បន្ទាយមានជ",
   )
   parser.add_argument("--device", default="cpu")
   args = parser.parse_args()

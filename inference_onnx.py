@@ -183,7 +183,6 @@ class ONNXPredictor:
 
   def predict(self, text: str) -> dict:
     char_ids = np.array([[self.vocab.get(ch, self.unk) for ch in text]], dtype=np.int64)
-    print(char_ids)
     emissions = self.sess.run(["emissions"], {"chars": char_ids})[0][
       0
     ]  # (seq_len, num_tags)
@@ -215,7 +214,7 @@ def main():
   parser.add_argument("--threshold-village", type=float, default=0.6)
   parser.add_argument(
     "--text",
-    default="ភូស្រះកើតឃុព្រះនេត្រព្រះស្រុកព្រះនេត្រព្រះបន្ទយមានជ",
+    default="ផ្ទះលេខ២ ផ្លូវ២៣ ភូមិប៉ុស្តិ័ចាស់ព្រះនេត្រព្រះព្រះនេត្រព្រះបន្ទាយមានជ",
   )
   args = parser.parse_args()
 
@@ -236,3 +235,5 @@ def main():
 
 if __name__ == "__main__":
   main()
+
+
